@@ -13,12 +13,13 @@
   
 body {
     font-family: 'Source Code Pro', monospace;
-    animation: gradient 10s ease-in-out infinite;
+    animation: gradient 20s ease-in-out;
     background-size: 400% 400%;
-    -webkit-animation: gradient 10s ease infinite;
-    -moz-animation: gradient 10s ease infinite;
-    -o-animation: gradient 10s ease infinite;
-    animation: gradient 10s ease infinite;
+    -webkit-animation: gradient 20s ease;
+    -moz-animation: gradient 20s ease;
+    -o-animation: gradient 20s ease;
+    animation: gradient 20s ease;
+    background: linear-gradient(to right, #6c63ec, #390894);
 }
 
 @keyframes gradient {
@@ -58,7 +59,7 @@ body::-webkit-scrollbar {
 }
     
   .spin-image {
-    animation: spin 20s linear infinite; 
+    animation: spin 20s linear; 
 }
 
 .img-container {
@@ -97,6 +98,8 @@ form {
     border: 1px solid #ccc;
     background-color: white;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    color: #6c63ec;
+
 }
 
 /* About Page */
@@ -105,6 +108,41 @@ form {
     padding: 50px 150px;
     color: white;
 }
+
+/* Markdown Styles */
+.markdown-container {
+    background-color: #282c34; 
+    color: #abb2bf; 
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-y: auto; 
+    overflow-x: hidden; 
+    max-height: 80vh; 
+}
+  
+.markdown-container pre {
+    background-color: #1c2028; 
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.markdown-container pre code {
+    color: #e06c75; 
+}
+  
+.markdown-container h1,
+.markdown-container h2,
+.markdown-container h3 {
+    color: #6c63ec; 
+}
+  
+.markdown-container a {
+    color: #98c379; 
+}
+  
+  
 /* Footer */
 
 footer {

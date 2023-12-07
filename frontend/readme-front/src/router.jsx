@@ -6,6 +6,7 @@ import SignUp from "./pages/SignUp";
 import UserProfile from "./pages/UserProfile";
 import About from "./pages/About";
 import ErrorPage from "./pages/ErrorPage"
+import Results from "./pages/Results";
 
 const router = createBrowserRouter([
     {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
         {
           path: "profile/",
           element: <UserProfile/>
+        },
+        {
+          path: "results/",
+          element: <Results/>
         }
       ],
       errorElement: <ErrorPage/>

@@ -17,11 +17,12 @@ class Sign_up(APIView):
     def post(self, request):
         try:
             data = request.data.copy()
-            data["username"] = request.data["email"]
+            data["username"] = request.data["username"]
+            data["email"] = request.data["email"]
             new_user = User.objects.create_user(**data)
             new_token = Token.objects.create(user=new_user)
             return Response(
-                {"email": new_user.email, "token": new_token.key},
+                {"email": new_user.email, "token": new_token.key, "username": new_user.username},
                 status=HTTP_201_CREATED,
             )
         except Exception as e:
@@ -33,11 +34,12 @@ class Log_in(APIView):
     def post(self, request):
         try:
             email = request.data["email"]
+            username = request.data["username"]
             password = request.data["password"]
-            user = authenticate(username=email, password=password)
+            user = authenticate(username=username, password=password, email=email)
             if user:
                 token, created = Token.objects.get_or_create(user=user)
-                return Response({"email": user.email, "token": token.key})
+                return Response({"email": email, "useername": username, "token": token.key})
             return Response(
                 "Something went wrong creating a token", status=HTTP_400_BAD_REQUEST
             )
@@ -52,7 +54,6 @@ class UserPermissions(APIView):
 class Info(UserPermissions):
     def get(self, request):
         user = UserSerializer(request.user)
-        # {display: request.user.display_name}
         return Response(user.data)
     
     def put(self, request):

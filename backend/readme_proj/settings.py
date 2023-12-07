@@ -19,8 +19,8 @@ AUTH_USER_MODEL = 'userapp.User'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 env = dotenv_values(".env") 
-env.get("SECRET_KEY")
-env.get("OPENAI_API_KEY")
+SECRET_KEY = env.get("SECRET_KEY")
+OPENAI_API_KEY = env.get("OPENAI_API_KEY")
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # SECURITY WARNING: don't run with debug turned on in production!

@@ -1,7 +1,6 @@
 from django.urls import path
-from .views import 
+from .views import Get_readme
 
 urlpatterns = [
-    path("", Info.as_view(), name="info"),
-
+    path('', Get_readme.as_view(), name='get-readme'),
 ]
