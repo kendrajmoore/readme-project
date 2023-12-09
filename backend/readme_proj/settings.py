@@ -14,16 +14,14 @@ from pathlib import Path
 from dotenv import dotenv_values
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-AUTH_USER_MODEL = 'userapp.User'
+AUTH_USER_MODEL = 'user_app.User'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 env = dotenv_values(".env") 
 SECRET_KEY = env.get("SECRET_KEY")
 OPENAI_API_KEY = env.get("OPENAI_API_KEY")
-# SECURITY WARNING: keep the secret key used in production secret!
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
@@ -43,8 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
-    'userapp',
-    'readmeapp',
+    'user_app',
+    'readme_app',
     'apiapp'
     
 ]
@@ -93,7 +91,7 @@ WSGI_APPLICATION = 'readme_proj.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'readme_db',
+        'NAME': 'new_readme',
     }
 }
 

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -7,6 +8,7 @@ import Form from 'react-bootstrap/Form';
 function SignIn() {
   const initialForm =  { email: '', password: '', username: ''};
   const [formData, setFormData] = useState(initialForm);
+  const { isAuthenticated, setIsAuthenticated } = useOutletContext();
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -22,6 +24,7 @@ function SignIn() {
       const token = response.data.token;
       localStorage.setItem('token', token);
       if (response.status === 200) {
+        setIsAuthenticated(true);
         navigate('/profile');
       } 
       console.log(response)

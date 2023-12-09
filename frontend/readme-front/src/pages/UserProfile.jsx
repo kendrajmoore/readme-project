@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Button from 'react-bootstrap/Button';
-import CreateForm from "../components/CreateForm";
+import CreateReadmeForm from "../components/CreateReadmeForm";
 
 function UserProfile() {
   const [showForm, setShowForm] = useState(false);
@@ -12,10 +12,10 @@ function UserProfile() {
         <div>
             <h3>Welcome to the app</h3>
             <Button variant="primary" type="submit" onClick={toggleForm}>Create Readme</Button>
-            {showForm && (<CreateForm/>)}
+            {showForm && (<CreateReadmeForm/>)}
         </div>
     </>
   )
 }
 
-export default UserProfile
+export default UserProfile;

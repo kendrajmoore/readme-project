@@ -7,3 +7,5 @@ class User(AbstractUser):
     github_handle = models.CharField(unique=True, default=None)
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = []
+
+

@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 
 
-function Header() {
+function Header({ isAuthenticated, setIsAuthenticated }) {
   const navigate = useNavigate();
   const handleLogout = async () => {
     const token = localStorage.getItem('token');
@@ -37,12 +37,22 @@ function Header() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/login/">Login</Nav.Link>
-            <Nav.Link href="/about/">About</Nav.Link>
+          <Nav.Link href="/about/">About</Nav.Link>
+          {!isAuthenticated ? (     
+            <>
+              <Nav.Link href="/login/">Login</Nav.Link>
+              <Nav.Link href="/signup/">Signup</Nav.Link> 
+            </>
+            ) : (
+            <Nav>
+              <Nav.Link href="/readme/">Readme</Nav.Link>
+              <Nav.Link href="/profile/">Profile</Nav.Link>
+              <Button onClick={handleLogout} variant="danger" type="submit">
+              Logout
+            </Button>
+            </Nav>
+            )}
           </Nav>
-          <Button onClick={handleLogout} variant="danger" type="submit">
-          Logout
-        </Button>
         </Navbar.Collapse>
       </Container>
     </Navbar>

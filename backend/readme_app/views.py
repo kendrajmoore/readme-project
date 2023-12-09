@@ -51,4 +51,3 @@ class Post_readme(APIView):
             )
         print(readme_text)
         return JsonResponse({'readme': readme_text}, status=HTTP_201_CREATED)
-   

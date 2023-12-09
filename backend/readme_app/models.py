@@ -1,5 +1,6 @@
 from django.db import models
-from userapp.models import User
+
+from user_app.models import User
 
 class Readme(models.Model):
     project_name = models.CharField(max_length=200, blank=False, null=False)

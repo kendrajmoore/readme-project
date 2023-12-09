@@ -34,7 +34,7 @@ const router = createBrowserRouter([
           element: <UserProfile/>
         },
         {
-          path: "results/",
+          path: "readme/",
           element: <Results/>
         }
       ],
