@@ -16,6 +16,11 @@ from dotenv import dotenv_values
 BASE_DIR = Path(__file__).resolve().parent.parent
 AUTH_USER_MODEL = 'user_app.User'
 
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "social_core.backends.github.GithubOAuth2",
+]
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 env = dotenv_values(".env") 
@@ -29,8 +34,6 @@ ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 
 
-# Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,8 +46,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'user_app',
     'readme_app',
-    'apiapp',
-     'django_extensions',
+    'github_app',
+    'django_extensions',
+    'social_django',
     
 ]
 
@@ -78,6 +82,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                "social_django.context_processors.backends",
+                "social_django.context_processors.login_redirect",
             ],
         },
     },

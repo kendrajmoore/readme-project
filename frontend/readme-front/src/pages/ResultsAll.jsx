@@ -34,10 +34,12 @@ export default function Results() {
     }, [])
     return (
         <>
-            {readmeData.map((r, idx) =>(
-                <ReadmeCard key={idx} repoName={r.repo_name} projectName={r.project_name} tools={r.tools} description={r.description}/>
-            ))}
-    
+            <h3 className="profile">Readmes</h3>
+            <div className="cards">
+                {readmeData.map((r, idx) =>(
+                    <ReadmeCard key={r.id} repoName={r.repo_name} projectName={r.project_name} tools={r.tools} description={r.description}/>
+                ))}
+            </div>
         </>
     )
 }

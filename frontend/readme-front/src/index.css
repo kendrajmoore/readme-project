@@ -75,9 +75,34 @@ body::-webkit-scrollbar {
     color: white !important;
 }
 
+.navbar-brand:hover {
+    color: #085ED6 !important;
+}
+
 .nav-link {
     color: white !important;
 }
+
+.nav-link:hover {
+    color: #085ED6 !important;
+}
+
+button.btn.btn-primary {
+    margin: 15px;
+}
+
+
+.btn-danger {
+    background-color: purple !important;
+    border-color: purple !important;
+}
+
+.btn-danger:hover {
+    background-color: white !important;
+    border-color: white !important;
+    color: black !important;
+}
+
 
 /* Forms */
 
@@ -97,7 +122,7 @@ form {
     padding: 20px;
     border: 1px solid #ccc;
     background-color: white;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
     color: #6c63ec;
 
 }
@@ -112,6 +137,8 @@ form {
 /* Profile Page */
 h3.profile {
     color: white;
+    text-align: center;
+    margin: 10px;
 }
 
 /* Markdown Styles */
@@ -146,7 +173,28 @@ h3.profile {
 .markdown-container a {
     color: #98c379; 
 }
+
+/* Results All Page */
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+  }
   
+.card {
+    margin: 20px;
+    padding: 0;
+    color: #6c63ec;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Error Page */
+h1.error-page {
+    color: white;
+}
+
+img #error {
+    align-items: center;
+}
   
 /* Footer */
 

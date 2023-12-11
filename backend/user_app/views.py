@@ -5,9 +5,12 @@ from .models import User
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import (
+    HTTP_200_OK,
     HTTP_201_CREATED,
     HTTP_204_NO_CONTENT,
     HTTP_400_BAD_REQUEST,
+    HTTP_403_FORBIDDEN,
+    HTTP_404_NOT_FOUND
 )
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -70,9 +73,33 @@ class Log_out(UserPermissions):
         request.user.auth_token.delete()
         return Response(status=HTTP_204_NO_CONTENT)
 
-class Update(UserPermissions):
-    serializer_class = UserSerializer
+class Update(APIView):
     permission_classes = [IsAuthenticated]
 
-    def get_object(self):
-        return User.objects.get(user=self.request.user)
+    def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
+
+    def put(self, request):
+        serializer = UserSerializer(request.user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+    
+class Delete(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, username):
+        try:
+            if request.user.username == username or request.user.is_superuser:
+                user = User.objects.get(username=username)
+                user.delete()
+                return Response({"message": "User deleted successfully"}, status=HTTP_200_OK)
+            else:
+                return Response({"error": "You do not have permission to delete this user"}, status=HTTP_403_FORBIDDEN)
+        except User.DoesNotExist:
+            return Response({"error": "User not found"}, status=HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"error": str(e)}, status=HTTP_400_BAD_REQUEST)

@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom';
 
 function UserProfile() {
   const [showForm, setShowForm] = useState(false);
-  const { isAuthenticated, setIsAuthenticated, isUsername, setIsUnsername } = useOutletContext();
+  const [profile, setProfile] = useState('');
+  const { isAuthenticated, setIsAuthenticated, isUsername, setIsUsername } = useOutletContext();
   const navigate = useNavigate();
   const toggleForm = () => {
     setShowForm(!showForm);
@@ -14,12 +15,15 @@ function UserProfile() {
   const handleClick = () => {
     navigate('/readmes');  
   };
+  const username = localStorage.getItem('username');
   return (
     <>
         <div>
-            <h3 className="profile">Welcome to the app</h3>
-            <Button variant="primary" type="submit" onClick={toggleForm}>Create Readme</Button><br></br>
+            <h3 className="profile">Welcome to Readme Generator {username} </h3>
+            <Button variant="primary" type="submit" onClick={toggleForm}>Create Readme</Button>
             <Button variant="primary" type="submit" onClick={handleClick}>Get Readmes</Button>
+            <Button variant="primary" type="submit" onClick={handleClick}>Update User</Button>
+            <Button variant="primary" type="submit" onClick={handleClick}>Delete User</Button>
             {showForm && (<CreateReadmeForm/>)}
         </div>
     </>
