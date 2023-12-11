@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isUsername, setIsUsername] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -18,7 +19,7 @@ function App() {
   return (
     <>
       <Header isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
-      <Outlet context={{isAuthenticated, setIsAuthenticated}} />
+      <Outlet context={{isAuthenticated, setIsAuthenticated, isUsername, setIsUsername}} />
       <Footer/>    
     </>
   )

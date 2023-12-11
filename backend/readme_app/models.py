@@ -9,4 +9,5 @@ class Readme(models.Model):
     tools = models.TextField(default="Unknown")
     reason = models.TextField(default="Unknown")
     content = models.TextField(default="Unknown")
-    github_handle = models.ForeignKey(User, on_delete=models.CASCADE, related_name='readmes', null=True)
+    username = models.ForeignKey(User, on_delete=models.CASCADE, related_name='readmes', null=True)
+    created_at = models.DateTimeField(auto_now_add=True)

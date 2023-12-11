@@ -8,7 +8,7 @@ import axios from "axios";
 function SignUp() {
   const initialForm =  { email: '', password: '', username: ''};
   const [formData, setFormData] = useState(initialForm);
-  const { isAuthenticated, setIsAuthenticated } = useOutletContext();
+  const { isAuthenticated, setIsAuthenticated, isUsername, setIsUsername } = useOutletContext();
   const navigate = useNavigate();
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,6 +18,9 @@ function SignUp() {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:8000/api/v1/users/signup/', formData);
+      const username = formData.username;
+      setIsUsername(username);
+      localStorage.setItem('username', username)
       setFormData(initialForm); 
       const token = response.data.token;
       localStorage.setItem('token', token);

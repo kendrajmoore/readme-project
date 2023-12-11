@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form';
 function SignIn() {
   const initialForm =  { email: '', password: '', username: ''};
   const [formData, setFormData] = useState(initialForm);
-  const { isAuthenticated, setIsAuthenticated } = useOutletContext();
+  const { isAuthenticated, setIsAuthenticated, isUsername, setIsUsername } = useOutletContext();
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -20,6 +20,9 @@ function SignIn() {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:8000/api/v1/users/login/', formData);
+      const username = formData.username;
+      setIsUsername(username);
+      localStorage.setItem('username', username)
       setFormData(initialForm);
       const token = response.data.token;
       localStorage.setItem('token', token);

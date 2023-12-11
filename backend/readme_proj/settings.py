@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'user_app',
     'readme_app',
-    'apiapp'
+    'apiapp',
+     'django_extensions',
     
 ]
 

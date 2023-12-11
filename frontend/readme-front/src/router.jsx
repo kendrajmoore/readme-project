@@ -7,6 +7,7 @@ import UserProfile from "./pages/UserProfile";
 import About from "./pages/About";
 import ErrorPage from "./pages/ErrorPage"
 import Results from "./pages/Results";
+import ResultsAll from "./pages/ResultsAll"
 
 const router = createBrowserRouter([
     {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
         {
           path: "readme/",
           element: <Results/>
+        },
+        {
+          path: "readmes/",
+          element: <ResultsAll/>
         }
       ],
       errorElement: <ErrorPage/>

@@ -4,4 +4,3 @@ from .models import User
 class UserSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ['github_handle']
