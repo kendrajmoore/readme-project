@@ -6,7 +6,7 @@ function ErrorPage() {
     <>
       <Header/>
       <h1 id='title'>Page Not Found</h1>
-      <img id='error' className="spin-image" src="../src/assets/error.png"/>
+      <img id='error' className="spin-image" src="../src/assets/404.png"/>
     </>
   )
 }

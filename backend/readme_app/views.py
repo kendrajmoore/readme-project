@@ -8,6 +8,7 @@ from readme_proj.settings import env
 from openai import OpenAI
 from dotenv import dotenv_values
 from .serializers import ReadmeSerializer
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.status import (
     HTTP_201_CREATED,
     HTTP_204_NO_CONTENT,
@@ -78,9 +79,31 @@ class Post_readme(APIView):
             )
         print(readme_text)
         return JsonResponse({'readme': readme_text}, status=HTTP_201_CREATED)
+    
+class UpdateReadme(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request, readme_id):
+        try:
+            readme = Readme.objects.get(id=readme_id)
+            serializer = ReadmeSerializer(readme)
+            return Response(serializer.data)
+        except Readme.DoesNotExist:
+            return Response({"error": "Not Found"}, status=HTTP_404_NOT_FOUND)
+
+    def put(self, request, readme_id):
+        try:
+            readme = Readme.objects.get(id=readme_id)
+            serializer = ReadmeSerializer(readme, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+        except Readme.DoesNotExist:
+            return Response({"error": "Not Found"}, status=HTTP_404_NOT_FOUND)
 
 
 class DeleteReadme(APIView):
+    permission_classes = [IsAuthenticated]
     def delete(self, request, readme_id):
         try:
             readme = Readme.objects.get(id=readme_id)
