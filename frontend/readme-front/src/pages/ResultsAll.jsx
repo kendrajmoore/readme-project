@@ -19,7 +19,7 @@ export default function Results() {
                 headers: {
                     'Authorization': `Token ${token}`,
                     'Content-Type': 'application/json'
-                  }
+                }
             })
             console.log(response.data)
             setReadmeData(response.data);
