@@ -40,19 +40,19 @@ function Header({ isAuthenticated, setIsAuthenticated }) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
           <Nav.Link href="/about/">About</Nav.Link>
-          {!isAuthenticated ? (     
-            <>
-              <Nav.Link href="/login/">Login</Nav.Link>
-              <Nav.Link href="/signup/">Signup</Nav.Link> 
-            </>
-            ) : (
-            <Nav>
-              <Nav.Link href="/readme/">Readme</Nav.Link>
-              <Nav.Link href="/profile/">Profile</Nav.Link>
-              <Button onClick={handleLogout} variant="danger" type="submit">
-              Logout
-            </Button>
-            </Nav>
+            {!isAuthenticated ? (     
+              <>
+                <Nav.Link href="/login/">Login</Nav.Link>
+                <Nav.Link href="/signup/">Signup</Nav.Link> 
+              </>
+              ) : (
+              <Nav>
+                <Nav.Link href="/readme/">Readme</Nav.Link>
+                <Nav.Link href="/profile/">Profile</Nav.Link>
+                <Button onClick={handleLogout} variant="danger" type="submit">
+                Logout
+                </Button>
+              </Nav>
             )}
           </Nav>
         </Navbar.Collapse>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
@@ -52,36 +52,36 @@ function CreateForm() {
     <>
         <div>
             <form onSubmit={e => createNewReadme(e)}>
-            <h2>Create a Readme</h2>
-            <input
+              <h2>Create a Readme</h2>
+              <input
                 type="text"
                 placeholder="Project Name"
                 onChange={(e) => setProjectName(e.target.value)}
-            />
-            <input
-            type="text"
-            placeholder="Repo Name"
-            onChange={(e) => setRepoName(e.target.value)}
-            />
-            <textarea
-            type="text"
-            placeholder="Description"
-            onChange={(e) => setDescription(e.target.value)}
-            />
-            <textarea
-            type="text"
-            placeholder="Tools"
-            onChange={(e) => setTools(e.target.value)}
-            />
-            <textarea
-            type="text"
-            placeholder="Reason for Creating Project"
-            onChange={(e) => setReason(e.target.value)}
-            />
-            <Button variant="primary" value="create"   type="submit">
-            Create
-          </Button>
-            <input type="submit" value="create"/>
+              />
+              <input
+                type="text"
+                placeholder="Repo Name"
+                onChange={(e) => setRepoName(e.target.value)}
+              />
+              <textarea
+                type="text"
+                placeholder="Description"
+                onChange={(e) => setDescription(e.target.value)}
+              />
+              <textarea
+                type="text"
+                placeholder="Tools"
+                onChange={(e) => setTools(e.target.value)}
+              />
+              <textarea
+                type="text"
+                placeholder="Reason for Creating Project"
+                onChange={(e) => setReason(e.target.value)}
+              />
+              <Button variant="primary" value="create"   type="submit">
+              Create
+              </Button>
+              <input type="submit" value="create"/>
             </form>
         </div>
     </>

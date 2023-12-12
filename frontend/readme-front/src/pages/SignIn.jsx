@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useOutletContext } from 'react-router-dom';
 import axios from 'axios';
@@ -13,7 +13,6 @@ function SignIn() {
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    console.log(setFormData)
   };
 
   const handleSubmit = async (e) => {
@@ -30,7 +29,6 @@ function SignIn() {
         setIsAuthenticated(true);
         navigate('/profile');
       } 
-      console.log(response)
       console.log('Success:', response.data);
     } catch (error) {
       console.error('Error:', error);

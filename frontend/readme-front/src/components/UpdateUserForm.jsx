@@ -5,7 +5,7 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-function UpdateUserForm({ }) {
+function UpdateUserForm() {
   const [userData, setUserData] = useState({
     email: '',
     username: ''
