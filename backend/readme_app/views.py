@@ -10,6 +10,7 @@ from dotenv import dotenv_values
 from .serializers import ReadmeSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.status import (
+    HTTP_200_OK,
     HTTP_201_CREATED,
     HTTP_204_NO_CONTENT,
     HTTP_400_BAD_REQUEST,
@@ -86,7 +87,7 @@ class UpdateReadme(APIView):
         try:
             readme = Readme.objects.get(id=readme_id)
             serializer = ReadmeSerializer(readme)
-            return Response(serializer.data)
+            return Response(serializer.data, status=HTTP_200_OK)
         except Readme.DoesNotExist:
             return Response({"error": "Not Found"}, status=HTTP_404_NOT_FOUND)
 
@@ -96,7 +97,7 @@ class UpdateReadme(APIView):
             serializer = ReadmeSerializer(readme, data=request.data)
             if serializer.is_valid():
                 serializer.save()
-                return Response(serializer.data)
+                return Response(serializer.data, status=HTTP_200_OK)
             return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
         except Readme.DoesNotExist:
             return Response({"error": "Not Found"}, status=HTTP_404_NOT_FOUND)

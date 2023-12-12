@@ -48,8 +48,7 @@ INSTALLED_APPS = [
     'readme_app',
     'github_app',
     'django_extensions',
-    'social_django',
-    
+    'social_django',   
 ]
 
 REST_FRAMEWORK = {
