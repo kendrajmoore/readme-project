@@ -8,7 +8,6 @@ import ReadmeCard from "../components/ReadmeCard";
 
 export default function Results() {
     const [readmeData, setReadmeData] = useState([]);
-    // const [isLoading, setIsLoading] = useState(false);
     const { isAuthenticated, setIsAuthenticated, isUsername, setIsUsername } = useOutletContext();
     const getReadme = async () => {
         try {

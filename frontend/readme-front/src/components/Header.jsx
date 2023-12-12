@@ -14,10 +14,12 @@ function Header({ isAuthenticated, setIsAuthenticated }) {
     try {
       await axios.post('http://localhost:8000/api/v1/users/logout/', {}, {
       headers: {
-        'Authorization': `Token ${token}` 
+        'Authorization': `Token ${token}`,
+        'Content-Type': 'application/json'
         }
       });
       localStorage.removeItem('token');
+      setIsAuthenticated(false);
       navigate('/login');
     } catch (error) {
       console.error('Logout error:', error);

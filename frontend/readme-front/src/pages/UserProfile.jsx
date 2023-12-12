@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Button from 'react-bootstrap/Button';
 import CreateReadmeForm from "../components/CreateReadmeForm";
+import UpdateUserForm from "../components/UpdateUserForm";
 import { useOutletContext } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
@@ -48,6 +49,7 @@ function UserProfile() {
             <Button variant="primary" type="submit" onClick={toggleUpdateForm}>Update User</Button>
             <Button variant="primary" type="submit" onClick={handleDelete}>Delete User</Button>
             {showForm && (<CreateReadmeForm/>)}
+            {showUpdateForm && (<UpdateUserForm />)}
         </div>
     </>
   )

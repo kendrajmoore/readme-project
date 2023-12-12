@@ -43,7 +43,7 @@ class Log_in(APIView):
             user = authenticate(username=username, password=password, email=email)
             if user:
                 token, created = Token.objects.get_or_create(user=user)
-                return Response({"email": email, "useername": username, "token": token.key})
+                return Response({"email": email, "useername": username, "token": token.key},status=HTTP_201_CREATED)
             return Response(
                 "Something went wrong creating a token", status=HTTP_400_BAD_REQUEST
             )
@@ -64,7 +64,7 @@ class Info(UserPermissions):
         user = UserSerializer(request.user, data=request.data, partial = True)
         if user.is_valid():
             user.save()
-            return Response(user.data)
+            return Response(user.data, status=HTTP_201_CREATED)
         return Response(user.errors, status=HTTP_400_BAD_REQUEST)
     
 

@@ -12,6 +12,7 @@ from rest_framework.status import (
     HTTP_201_CREATED,
     HTTP_204_NO_CONTENT,
     HTTP_400_BAD_REQUEST,
+    HTTP_401_UNAUTHORIZED,
     HTTP_404_NOT_FOUND
 )
 class GetAllReadmes(APIView):
@@ -77,3 +78,16 @@ class Post_readme(APIView):
             )
         print(readme_text)
         return JsonResponse({'readme': readme_text}, status=HTTP_201_CREATED)
+
+
+class DeleteReadme(APIView):
+    def delete(self, request, readme_id):
+        try:
+            readme = Readme.objects.get(id=readme_id)
+            if request.user == readme.owner:
+                readme.delete()
+                return Response(status=HTTP_204_NO_CONTENT)
+            else:
+                return Response({"error": "Unauthorized"}, status=HTTP_401_UNAUTHORIZED)
+        except Readme.DoesNotExist:
+            return Response({"error": "Not Found"}, status=HTTP_404_NOT_FOUND)
