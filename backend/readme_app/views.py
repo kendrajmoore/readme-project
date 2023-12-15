@@ -77,13 +77,18 @@ class Post_readme(APIView):
                 status=HTTP_400_BAD_REQUEST
             )
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": prompt}
             ],
         )
         print(response)
+        github_repo = GitHubRepository(
+            name=repo_name,
+            owner=request.user
+        )
+        github_repo.save()
         readme_text = response.choices[0].message.content
         readme_instance = Readme.objects.create(
                 project_name=project_name,
@@ -93,13 +98,10 @@ class Post_readme(APIView):
                 reason=reason,
                 content=readme_text,
                 username=user,
-                logo_url=image_url
+                logo_url=image_url,
+                github_repository=github_repo
         )
-        github_repo = GitHubRepository(
-            name=repo_name,
-            owner=request.user
-        )
-        github_repo.save()
+       
         return JsonResponse({'readme': readme_text}, status=HTTP_201_CREATED)
     
 class UpdateReadme(APIView):

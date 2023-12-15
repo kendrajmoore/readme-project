@@ -68,13 +68,13 @@ function UpdateReadmeForm({ id }) {
                 type="text"
                 name="project_name"
                 placeholder={readmeData.projectName}
-                value={readmeData.projectName}
+                value={readmeData.project_name}
                 onChange={handleInputChange}
             />
             <input
                 type="text"
                 name="repo_name"
-                value={readmeData.repoName}
+                value={readmeData.repo_name}
                 placeholder={readmeData.repoName}
                 onChange={handleInputChange}
             />

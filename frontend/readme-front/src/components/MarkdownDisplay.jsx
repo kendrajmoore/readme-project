@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ReactMarkdown from 'react-markdown';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
-import { useOutletContext, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import UpdateReadmeForm from "./UpdateReadmeForm";
 
 function MarkdownDisplayComponent({ data, id }) {
@@ -30,6 +30,27 @@ function MarkdownDisplayComponent({ data, id }) {
     
   };
 
+  const handlePush = async() => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.post(`http://localhost:8000/api/v1/github/push/${id}/`, {
+      headers: {
+        'Authorization': `Token ${token}`,
+        'Content-Type': 'application/json'
+        }
+      });
+      if (response.status === 200) {
+        const showAlert = () => {
+          alert('Succes');
+        };
+        showAlert();
+      }  
+    } catch(err) {
+      console.error('There was an error!', err);
+    }
+    
+  };
+
   return (
     <>
     <div>
@@ -38,7 +59,7 @@ function MarkdownDisplayComponent({ data, id }) {
     <div className="markdown-container">
        <Button variant="primary" type="submit" onClick={toggleUpdateForm}>Update Readme</Button>
        <Button variant="primary" type="submit" onClick={handleDelete}>Delete Readme</Button>
-       <Button variant="primary" type="submit">Push Readme</Button><br></br>
+       <Button variant="primary" type="submit" onClick={handlePush}>Push Readme</Button><br></br>
       <ReactMarkdown>{data}</ReactMarkdown>
     </div>
     </>

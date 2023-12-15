@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
 import PacmanLoader from "react-spinners/PacmanLoader";
 import UserProfileCard from "../components/UserProfileCard";
-import { useOutletContext } from 'react-router-dom';
 import axios from "axios";
 
 function UserProfile() {
   const [profile, setProfile] = useState('');
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const { isAuthenticated, setIsAuthenticated, isUsername, setIsUsername } = useOutletContext();
   const username = localStorage.getItem('username');
 
   useEffect(() => {
@@ -17,9 +14,7 @@ function UserProfile() {
         const response = await axios.get(`https://api.github.com/users/${username}`);
         setProfile(response.data);
         setLoading(false);
-        setError('');
       } catch (err) {
-        setError('Error fetching GitHub profile');
         console.error(err);
       }
     };

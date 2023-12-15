@@ -13,4 +13,4 @@ class Readme(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     logo_url = models.URLField(max_length=1024, blank=True, null=True)
     username = models.ForeignKey(User, on_delete=models.CASCADE, related_name='readmes', null=True)
-    github_repository = models.ForeignKey(GitHubRepository, null=True, blank=True, on_delete=models.CASCADE, related_name='readmes')
+    github_repository = models.ForeignKey(GitHubRepository, null=False, blank=False, on_delete=models.CASCADE, related_name='readmes')
