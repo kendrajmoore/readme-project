@@ -1,6 +1,7 @@
 from django.urls import path
-# from .views import Github_info
+from .views import GetUserGitHubProfile, PushReadme
 
-# urlpatterns = [
-#     path('', Github_info.as_view(), name='github-info'),
-# ]
+urlpatterns = [
+    path('<str:username>/', GetUserGitHubProfile.as_view(), name='get-readme'),
+    path('<int:repo_id>/', PushReadme.as_view(), name='push-readme'),
+]

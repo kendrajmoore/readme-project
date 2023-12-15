@@ -16,22 +16,18 @@ from dotenv import dotenv_values
 BASE_DIR = Path(__file__).resolve().parent.parent
 AUTH_USER_MODEL = 'user_app.User'
 
-AUTHENTICATION_BACKENDS = [
-    "django.contrib.auth.backends.ModelBackend",
-    "social_core.backends.github.GithubOAuth2",
-]
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 env = dotenv_values(".env") 
 SECRET_KEY = env.get("SECRET_KEY")
 OPENAI_API_KEY = env.get("OPENAI_API_KEY")
+GITHUB_TOKEN = env.get("GITHUB_TOKEN")
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173", 
+]
 
 
 INSTALLED_APPS = [
@@ -47,8 +43,7 @@ INSTALLED_APPS = [
     'user_app',
     'readme_app',
     'github_app',
-    'django_extensions',
-    'social_django',   
+    'django_extensions', 
 ]
 
 REST_FRAMEWORK = {
@@ -59,13 +54,13 @@ REST_FRAMEWORK = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'readme_proj.urls'
@@ -81,8 +76,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                "social_django.context_processors.backends",
-                "social_django.context_processors.login_redirect",
             ],
         },
     },

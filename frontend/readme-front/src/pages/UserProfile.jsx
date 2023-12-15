@@ -1,56 +1,41 @@
 import { useEffect, useState } from "react";
-import Button from 'react-bootstrap/Button';
-import CreateReadmeForm from "../components/CreateReadmeForm";
-import UpdateUserForm from "../components/UpdateUserForm";
+import PacmanLoader from "react-spinners/PacmanLoader";
+import UserProfileCard from "../components/UserProfileCard";
 import { useOutletContext } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 function UserProfile() {
-  const [showForm, setShowForm] = useState(false);
-  const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [profile, setProfile] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const { isAuthenticated, setIsAuthenticated, isUsername, setIsUsername } = useOutletContext();
-  const navigate = useNavigate();
-  const toggleForm = () => {
-    setShowForm(!showForm);
-  };
-  const toggleUpdateForm = () => {
-    setShowUpdateForm(!showUpdateForm);
-  };
-  const handleClick = () => {
-    navigate('/readmes');  
-  };
   const username = localStorage.getItem('username');
 
-  const handleDelete = async() => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.delete(`http://localhost:8000/api/v1/users/delete/${username}/`, {
-      headers: {
-        'Authorization': `Token ${token}`,
-        'Content-Type': 'application/json'
-        }
-      });
-      if (response.status === 200) {
-        setIsAuthenticated(false);
-        navigate('/');
-      }  
-    } catch(err) {
-      console.error('There was an error!', err);
-    }
-    
-  };
+  useEffect(() => {
+    const fetchGitHubProfile = async () => {
+      try {
+        const response = await axios.get(`https://api.github.com/users/${username}`);
+        setProfile(response.data);
+        setLoading(false);
+        setError('');
+      } catch (err) {
+        setError('Error fetching GitHub profile');
+        console.error(err);
+      }
+    };
+    fetchGitHubProfile();
+  }, []);
+
+  if (loading) {
+    return <PacmanLoader size={500} color="#800080" />;
+  }
+
   return (
     <>
-        <div>
-            <h3 className="profile">Welcome to Readme Generator {username} </h3>
-            <Button variant="primary" type="submit" onClick={toggleForm}>Create Readme</Button>
-            <Button variant="primary" type="submit" onClick={handleClick}>Get Readmes</Button>
-            <Button variant="primary" type="submit" onClick={toggleUpdateForm}>Update User</Button>
-            <Button variant="primary" type="submit" onClick={handleDelete}>Delete User</Button>
-            {showForm && (<CreateReadmeForm/>)}
-            {showUpdateForm && (<UpdateUserForm />)}
-        </div>
+    <h3 className="profile">Welcome to Readme Generator {username} </h3>
+     <div className="img-container">
+        <UserProfileCard profile={profile} name={profile.name} url={profile.avatar_url} local={profile.location} bio={profile.bio} login={profile.login} username={username}/>
+     </div>
     </>
   )
 }

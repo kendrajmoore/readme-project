@@ -64,8 +64,6 @@ function UpdateUserForm() {
   if (!showForm) {
     return null; 
   }
-
-
   return (
     <>
       <div className='form'>

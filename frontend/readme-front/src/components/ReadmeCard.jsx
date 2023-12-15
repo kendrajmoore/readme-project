@@ -1,14 +1,15 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function ReadmeCard({ id, repoName, description }) {
-  const handleUpdateClick = async () => {
+  const navigate = useNavigate();
+  const handleClick = async () => {
     try {
-      const response = await axios.put(`/api/readme/update/${id}/`);
-      console.log(response.data.content);
+      const response = await axios.get(`http://127.0.0.1:8000/api/v1/readme/get/${id}/`);
+      console.log(response);
     } catch (error) {
       console.error(error);
     }
@@ -22,9 +23,7 @@ function ReadmeCard({ id, repoName, description }) {
               <Card.Text>
               Description: {description}
               </Card.Text>
-              <Link to={`/readme/${id}/`}>
-                <Button variant="primary">View More</Button>
-              </Link>
+                <Button variant="primary" onClick={handleClick}>View More</Button>
           </Card.Body>
         </Card>
     </>

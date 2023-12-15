@@ -5,4 +5,4 @@ class ReadmeSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Readme 
-        fields = ['id', 'project_name', 'repo_name', 'description', 'tools', 'reason', 'content', 'username', 'created_at']
+        fields = '__all__'

@@ -1,43 +1,45 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import MarkdownDisplayComponent from "../components/MarkdownDisplay";
-import Spinner from 'react-bootstrap/Spinner';
+import PacmanLoader from "react-spinners/PacmanLoader";
 import { useOutletContext } from 'react-router-dom';
 
 
 export default function Results() {
     const [readmeData, setReadmeData] = useState('');
     const [readmeId, setreadmeId] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const { isAuthenticated, setIsAuthenticated, isUsername, setIsUsername } = useOutletContext();
-    const getReadme = async () => {
-        try {
-            setIsLoading(true)
+    useEffect(() => {
+        const getReadme = async (e) => {
+            try {
+                setLoading(true);
             const token = localStorage.getItem('token');
             let response = await axios.get(`http://127.0.0.1:8000/api/v1/readme/latest-readme/`, {
                 headers: {
                     'Authorization': `Token ${token}`,
                     'Content-Type': 'application/json'
-                  }
+                    }
             })
+            console.log(response)
+            console.log(response.data.id)
             setReadmeData(response.data.content);
             setreadmeId(response.data.id)
-            setIsLoading(false) 
-        } catch(err) {
-            console.error('There was an error!', err);
-        }
-        
-    }
-
-    useEffect(() => {
+            setLoading(false);
+            } catch (error) {
+                console.log(error)
+            }
+        };
         getReadme();
     }, [])
+    
+    if (loading) {
+        return <PacmanLoader size={500} color="#800080"/>;
+    }
+    
     return (
         <>
-            { isLoading ? 
-                <Spinner animation="border" variant="primary" /> : <MarkdownDisplayComponent data={readmeData} id={readmeId}/>
-            }
-    
+          <MarkdownDisplayComponent data={readmeData} id={readmeId}/>
         </>
     )
 }

@@ -33,13 +33,14 @@ export default function Results() {
     return (
         <>
             <h3 className="profile">Readmes</h3>
-            <div className="cards">
+           { readmeData ? <div className="cards">
                 {readmeData.map((r, idx) =>(
                     <ReadmeCard key={r.id} 
                     id={r.id}
                     repoName={r.repo_name} projectName={r.project_name} tools={r.tools} description={r.description}/>
+                    
                 ))}
-            </div>
+            </div> : <h4>No Readmes Yet</h4> }
         </>
     )
 }

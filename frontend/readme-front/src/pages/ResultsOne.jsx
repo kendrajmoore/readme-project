@@ -16,12 +16,13 @@ export default function ResultsOne() {
             const token = localStorage.getItem('token');
             const username = localStorage.getItem('username');
             console.log("result username: ", username);
-            let response = await axios.get(`http://127.0.0.1:8000/api/v1/readme/${id}/`, {
+            let response = await axios.get(`http://127.0.0.1:8000/api/v1/readme/${id}`, {
                 headers: {
                     'Authorization': `Token ${token}`,
                     'Content-Type': 'application/json'
                   }
             })
+            console.log(response)
             setReadmeData(response.data.content);
             setIsLoading(false) 
         } catch(err) {
