@@ -13,6 +13,7 @@ function UserProfile() {
       try {
         const response = await axios.get(`https://api.github.com/users/${username}`);
         setProfile(response.data);
+        console.log(response.data)
         setLoading(false);
       } catch (err) {
         console.error(err);
@@ -22,14 +23,14 @@ function UserProfile() {
   }, []);
 
   if (loading) {
-    return <PacmanLoader size={500} color="#800080" />;
+    return <PacmanLoader size={300} color="#800080" />;
   }
 
   return (
     <>
     <h3 className="profile">Welcome to Readme Generator {username} </h3>
      <div className="img-container">
-        <UserProfileCard profile={profile} name={profile.name} url={profile.avatar_url} local={profile.location} bio={profile.bio} login={profile.login} username={username}/>
+        <UserProfileCard profile={profile} name={profile.name} url={profile.avatar_url} local={profile.location} bio={profile.bio} login={profile.login} username={username} link={profile.html_url}/>
      </div>
     </>
   )

@@ -25,8 +25,8 @@ function UpdateReadmeForm({ id }) {
                 }
             });
                 setReadmeData(response.data);
-                if (response.status === 200) {
-                  navigate('/readme');
+                if (response.status !== 200) {
+                  navigate(`/error`);
                  }
                 } catch(error) {
                     console.error('Error fetching readme data', error);
@@ -50,6 +50,10 @@ function UpdateReadmeForm({ id }) {
             }
           });
           if (response.status === 200) {
+            const showAlert = () => {
+              alert('Succes');
+            };
+            showAlert();
             navigate('/profile');
           } 
           console.log(response.status)

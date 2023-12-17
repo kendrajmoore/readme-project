@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import UpdateReadmeForm from "./UpdateReadmeForm";
+
 
 function MarkdownDisplayComponent({ data, id }) {
   const navigate = useNavigate();
@@ -22,7 +25,11 @@ function MarkdownDisplayComponent({ data, id }) {
         }
       });
       if (response.status === 204) {
-        navigate('/');
+        const showAlert = () => {
+          alert('Succes');
+        };
+        showAlert();
+        navigate('/profile')
       }  
     } catch(err) {
       console.error('There was an error!', err);
@@ -60,7 +67,7 @@ function MarkdownDisplayComponent({ data, id }) {
        <Button variant="primary" type="submit" onClick={toggleUpdateForm}>Update Readme</Button>
        <Button variant="primary" type="submit" onClick={handleDelete}>Delete Readme</Button>
        <Button variant="primary" type="submit" onClick={handlePush}>Push Readme</Button><br></br>
-      <ReactMarkdown>{data}</ReactMarkdown>
+      <ReactMarkdown  rehypePlugins={[rehypeRaw]}        remarkPlugins={[remarkGfm]}>{data}</ReactMarkdown>
     </div>
     </>
   );

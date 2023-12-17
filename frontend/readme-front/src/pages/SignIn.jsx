@@ -25,11 +25,12 @@ function SignIn() {
       setFormData(initialForm);
       const token = response.data.token;
       localStorage.setItem('token', token);
-      if (response.status === 200) {
+      if (response.status === 201) {
         setIsAuthenticated(true);
         navigate('/profile');
       } 
     } catch (error) {
+      navigate('/error')
       console.error('Error:', error);
     }
   };

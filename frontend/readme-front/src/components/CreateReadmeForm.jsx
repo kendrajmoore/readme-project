@@ -42,11 +42,15 @@ function CreateForm() {
       setTools([]);
       setReason('');
       navigate('/readme');
+    } else {
+      setLoading(false);
+      navigate('/error');
     }
+  
   }
 
   if (loading) {
-    return <PacmanLoader size={500} color="#800080" />;
+    return <PacmanLoader size={300} color="#800080" />;
   }
 
   return (

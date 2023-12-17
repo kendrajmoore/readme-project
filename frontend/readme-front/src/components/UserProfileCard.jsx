@@ -4,7 +4,7 @@ import { useOutletContext, useNavigate } from 'react-router-dom';
 import CreateReadmeForm from "../components/CreateReadmeForm";
 import UpdateUserForm from "../components/UpdateUserForm";
 
-function UserProfileCard({ profile, name, url, local, bio, login }) {
+function UserProfileCard({ profile, name, url, local, bio, login, link }) {
   const navigate = useNavigate();
   const [showForm, setShowForm] = useState(false);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
@@ -43,7 +43,7 @@ function UserProfileCard({ profile, name, url, local, bio, login }) {
 
         <div className="profile-card">
             <img className="profile-card" src={url} alt="pic"/>
-            <a href=""><h1>{name}</h1></a>
+            <a href={link}><h1>{name}</h1></a>
             <p className="profile-title">Location: {local}</p>
             <p>{bio}</p>
             <button className="profile-button" type="submit" onClick={toggleForm}>Create Readme</button>

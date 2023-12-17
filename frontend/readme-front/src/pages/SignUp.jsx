@@ -28,6 +28,7 @@ function SignUp() {
         navigate('/profile');
       }
     } catch(error) {
+      navigate('/error');
       console.error('Error:', error);
     }
   };
