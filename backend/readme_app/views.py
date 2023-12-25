@@ -58,7 +58,9 @@ class Post_readme(APIView):
     def post(self, request):
         client = OpenAI(api_key=env.get("OPENAI_API_KEY"))
         imgkey = env.get("IMGKEY")
+
         #form data from front end
+
         user = request.user
         project_name = request.data.get('projectName')
         description = request.data.get('description')
@@ -76,6 +78,7 @@ class Post_readme(APIView):
         )
         first_image = image_response.data[0]
         image_url = first_image.url
+
         #temp save image
         random_number = random.randint(1000, 9999)
         filename = f"downloaded_image_{random_number}.png"
@@ -107,8 +110,9 @@ class Post_readme(APIView):
                 print(f"Failed to upload the image. Status code: {res}")
 
         #readme prompt
-        prompt = f"create a detailed readme for a github repo named {repo_name} for an open source project called {project_name}. The project uses the following tools: {tools}. It description: {description}. {reason}. Sections include badges, project title, about the project, built with, getting started, usage, roadmap, contributing, license, contact, and acknowledgments. For the badges make one for a MIT license using badgen.net. Language counts Badge should be display first. Undernearth the badges add the logo using similar code img src={img_url} with a width of 80px and a height of 80px. For about the project include two paragraphs. For built with add badges for each tools used using img.shields.io. For getting started include any prerequisites installation. For roadmap include steps to make project open source and make the steps have checkboxes.For contributing include similarsteps fork the project, create your feature branch, git checkout -b , commit your changes, git commit -m, push to the branch, git push origin, open a pull request. For contact use github.com/{user}/{repo_name}/issuses. Acknowledgments thank open source community and github."
+        prompt = f"create a detailed readme for a github repo named {repo_name} for an open source project called {project_name}. The project uses the following tools: {tools}. It description: {description}. {reason}. Sections include badges, project title, about the project, built with, getting started, usage, roadmap, contributing, license, contact, and acknowledgments. For the badges make one for a MIT license using badgen.net. Language counts Badge should be display first. Undernearth the badges add the logo {img_url}. For about the project include two paragraphs. For built with add badges for each tools used using img.shields.io. For getting started include any prerequisites installation. For roadmap include steps to make project open source and make the steps have checkboxes.For contributing include similar numbered steps fork the project, create your feature branch, git checkout -b , commit your changes, git commit -m, push to the branch, git push origin, open a pull request. For contact use github.com/{user}/{repo_name}/issuses. Acknowledgments thank open source community and github."
         print(prompt)
+        
         if not all([project_name, description, tools, reason, repo_name]):
             return Response(
                 {"error": "All fields are required."},
